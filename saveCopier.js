@@ -8,6 +8,7 @@ const computerName = os.homedir();
 // PERSONA 5 PATHS
 const srcDir = `${computerName}/AppData/Local/Packages/SEGAofAmericaInc.F0cb6b3aer_s751p9cej88mt/SystemAppData`;
 const destDir = `${computerName}/desktop/Pasta com saves de jogos/Persona 5 Royal/SystemAppData`;
+const watchDir = `${computerName}/AppData/Local/Packages/SEGAofAmericaInc.F0cb6b3aer_s751p9cej88mt/SystemAppData/wgs`;
 
 // DARK SOULS III PATHS
 // const srcDir = `${computerName}/AppData/Roaming/DarkSoulsIII`;
@@ -29,6 +30,7 @@ copyFolders();
 
 // watch if the folder changed
 const watchAFolder = (folder) => {
+	console.log(`Watching for changes in: ${watchDir}`);
 	fs.watch(folder, () => {
 		console.log(`================================`);
 		console.log(`Some file has been modified.`);
@@ -38,4 +40,4 @@ const watchAFolder = (folder) => {
 };
 
 // Calling functions
-watchAFolder(srcDir);
+watchAFolder(watchDir);
