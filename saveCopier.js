@@ -7,7 +7,8 @@ const computerName = os.homedir();
 
 // PERSONA 5 PATHS
 const srcDir = `${computerName}/AppData/Local/Packages/SEGAofAmericaInc.F0cb6b3aer_s751p9cej88mt/SystemAppData`;
-const destDir = `${computerName}/desktop/Pasta com saves de jogos/Persona 5 Royal/SystemAppData`;
+// const destDir = `${computerName}/desktop/Pasta com saves de jogos/Persona 5 Royal/SystemAppData`;
+const destDir = `${computerName}/documents/Pasta com saves de jogos/Persona 5 Royal/SystemAppData`;
 const watchDir = `${computerName}/AppData/Local/Packages/SEGAofAmericaInc.F0cb6b3aer_s751p9cej88mt/SystemAppData/wgs`;
 
 // DARK SOULS III PATHS
@@ -17,6 +18,7 @@ const watchDir = `${computerName}/AppData/Local/Packages/SEGAofAmericaInc.F0cb6b
 // To copy a folder or file, select overwrite accordingly
 const copyFolders = () => {
 	try {
+		fs.rmSync(destDir, { recursive: true})
 		fse.copySync(srcDir, destDir, { overwrite: true | false });
 		console.log(`================================`);
 		console.log('Files successfully copied to folder:');
