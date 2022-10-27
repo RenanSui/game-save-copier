@@ -5,20 +5,11 @@ const os = require('os');
 // computer users name path
 const computerName = os.homedir();
 
-// PERSONA 5 PATHS
-const srcDir = `${computerName}/AppData/Local/Packages/SEGAofAmericaInc.F0cb6b3aer_s751p9cej88mt/SystemAppData`;
-// const destDir = `${computerName}/desktop/Pasta com saves de jogos/Persona 5 Royal/SystemAppData`;
-const destDir = `${computerName}/documents/Pasta com saves de jogos/Persona 5 Royal/SystemAppData`;
-const watchDir = `${computerName}/AppData/Local/Packages/SEGAofAmericaInc.F0cb6b3aer_s751p9cej88mt/SystemAppData/wgs`;
-
-// DARK SOULS III PATHS
-// const srcDir = `${computerName}/AppData/Roaming/DarkSoulsIII`;
-// const destDir = `${computerName}/desktop/Pasta com saves de jogos/DarkSoulsIII`;
-
 // To copy a folder or file, select overwrite accordingly
-const copyFolders = () => {
+const copyFolders = (srcDir, destDir) => {
 	try {
-		fs.rmSync(destDir, { recursive: true})
+		fse.copySync(srcDir, destDir, { overwrite: true | false });
+		fs.rmSync(destDir, { recursive: true });
 		fse.copySync(srcDir, destDir, { overwrite: true | false });
 		console.log(`================================`);
 		console.log('Files successfully copied to folder:');
@@ -28,18 +19,36 @@ const copyFolders = () => {
 	}
 };
 
-copyFolders();
-
 // watch if the folder changed
-const watchAFolder = (folder) => {
-	console.log(`Watching for changes in: ${watchDir}`);
-	fs.watch(folder, () => {
+const watchPersona5 = () => {
+	// PERSONA 5 PATHS
+	const srcDir = `C:/Games/Persona 5 Royal/data/bis/user/save/0000000000000001/0/`;
+	const destDir = `${computerName}/documents/Pasta com saves de jogos/Persona 5 Royal/SystemAppData`;
+
+	console.log(`Watching for changes in: ${srcDir}`);
+	fs.watch(srcDir, { recursive: true }, () => {
 		console.log(`================================`);
 		console.log(`Some file has been modified.`);
 		console.log(`The folder will be copied again.`);
-		copyFolders();
+		copyFolders(srcDir, destDir);
+	});
+};
+
+// watch if the folder changed
+const watchDarkSouls3 = () => {
+	// DARK SOULS III PATHS
+	const srcDir = `${computerName}/AppData/Roaming/DarkSoulsIII/`;
+	const destDir = `${computerName}/documents/Pasta com saves de jogos/DarkSoulsIII/`;
+
+	console.log(`Watching for changes in: ${srcDir}`);
+	fs.watch(srcDir, { recursive: true }, () => {
+		console.log(`================================`);
+		console.log(`Some file has been modified.`);
+		console.log(`The folder will be copied again.`);
+		copyFolders(srcDir, destDir);
 	});
 };
 
 // Calling functions
-watchAFolder(watchDir);
+watchPersona5();
+watchDarkSouls3();
