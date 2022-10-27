@@ -7,15 +7,17 @@ const computerName = os.homedir();
 
 // To copy a folder or file, select overwrite accordingly
 const copyFolders = (srcDir, destDir) => {
+	fs.rmSync(destDir, { recursive: true });
 	try {
-		fse.copySync(srcDir, destDir, { overwrite: true | false });
-		fs.rmSync(destDir, { recursive: true });
 		fse.copySync(srcDir, destDir, { overwrite: true | false });
 		console.log(`================================`);
 		console.log('Files successfully copied to folder:');
 		console.log(destDir);
 	} catch (err) {
-		console.error(err);
+		console.log(`================================`);
+
+		console.log('Um erro ocorreu');
+		console.log(err);
 	}
 };
 
@@ -28,7 +30,9 @@ const watchPersona5 = () => {
 	console.log(`Watching for changes in: ${srcDir}`);
 	fs.watch(srcDir, { recursive: true }, () => {
 		console.log(`================================`);
-		console.log(`Some file has been modified.`);
+		console.log(`Some file has been modified in: `);
+		console.log(destDir);
+		console.log(`================================`);
 		console.log(`The folder will be copied again.`);
 		copyFolders(srcDir, destDir);
 	});
