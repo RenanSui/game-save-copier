@@ -22,7 +22,7 @@ const copyFolders = (srcDir, destDir) => {
 // watch if the folder changed
 const watchPersona5 = () => {
 	// PERSONA 5 PATHS
-	const srcDir = `C:/Games/Persona 5 Royal/data/bis/user/save/0000000000000001/0/`;
+	const srcDir = `C:/Games/Persona 5 Royal/data/bis/user/save/0000000000000001/`;
 	const destDir = `${computerName}/documents/Pasta com saves de jogos/Persona 5 Royal/SystemAppData`;
 
 	console.log(`Watching for changes in: ${srcDir}`);
